@@ -41,28 +41,47 @@ const DESCRIPTIONS = [
   'Ну и денек!'
 ];
 
-const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
+function getRandomInteger (min, max) {
+  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
+  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
   const result = Math.random() * (upper - lower + 1) + lower;
+
   return Math.floor(result);
-};
+}
+
+function createRandomIdFromRangeGenerator (min, max) {
+  const previousValues = [];
+
+  return function () {
+    let currentValue = getRandomInteger(min, max);
+    if (previousValues.length >= (max - min + 1)) {
+      // eslint-disable-next-line no-console
+      console.error(`Перебраны все числа из диапазона от ${ min } до ${ max}`);
+      return null;
+    }
+    while (previousValues.includes(currentValue)) {
+      currentValue = getRandomInteger(min, max);
+    }
+    previousValues.push(currentValue);
+    return currentValue;
+  };
+}
 
 const createPhoto = () => {
 
-  const randomId = getRandomInteger(1,25);
-  const randomUrl = getRandomInteger(1,25);
-  const randomAvatar = getRandomInteger(1,25);
-  const randomDescription = getRandomInteger(0, DESCRIPTIONS.length - 1);
-  const randomLike = getRandomInteger(15, 200);
-  const randomComment = getRandomInteger(0, COMMENTS.length - 1);
-  const randomName = getRandomInteger(0, NAMES.length - 1);
+  const randomId = createRandomIdFromRangeGenerator(1,25);
+  const randomUrl = createRandomIdFromRangeGenerator(1,25);
+  const randomAvatar = createRandomIdFromRangeGenerator(1,25);
+  const randomDescription = createRandomIdFromRangeGenerator(0, DESCRIPTIONS.length - 1);
+  const randomLike = createRandomIdFromRangeGenerator(15, 200);
+  const randomComment = createRandomIdFromRangeGenerator(0, COMMENTS.length - 1);
+  const randomName = createRandomIdFromRangeGenerator(0, NAMES.length - 1);
 
   return {
     id: randomId,
     url: `photos/${[randomUrl]}.jpg`,
     description: DESCRIPTIONS[randomDescription],
-    like: randomLike,
+    likes: randomLike,
     message: {
       id: randomId,
       avatar:`img/avatar-${[randomAvatar]}.svg`,
