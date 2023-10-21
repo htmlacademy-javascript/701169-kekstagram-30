@@ -69,7 +69,7 @@ function createRandomIdFromRangeGenerator (min, max) {
 
 const createPhoto = () => {
 
-  const randomId = createRandomIdFromRangeGenerator(1,25);
+  const randomId = createRandomIdFromRangeGenerator(1,26);
   const randomUrl = createRandomIdFromRangeGenerator(1,25);
   const randomAvatar = createRandomIdFromRangeGenerator(1,25);
   const randomDescription = createRandomIdFromRangeGenerator(0, DESCRIPTIONS.length - 1);
@@ -78,15 +78,15 @@ const createPhoto = () => {
   const randomName = createRandomIdFromRangeGenerator(0, NAMES.length - 1);
 
   return {
-    id: randomId,
-    url: `photos/${[randomUrl]}.jpg`,
-    description: DESCRIPTIONS[randomDescription],
-    likes: randomLike,
+    id: (randomId()),
+    url: `photos/${[(randomUrl())]}.jpg`,
+    description: DESCRIPTIONS[(randomDescription)()],
+    likes: (randomLike()),
     message: {
-      id: randomId,
-      avatar:`img/avatar-${[randomAvatar]}.svg`,
-      comment: COMMENTS[randomComment],
-      name: NAMES[randomName]
+      id: (randomId()),
+      avatar:`img/avatar-${[(randomAvatar)()]}.svg`,
+      comment: COMMENTS[(randomComment)()],
+      name: NAMES[(randomName)()]
     },
   };
 };
