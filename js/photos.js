@@ -1,6 +1,6 @@
-import {NAMES} from './data'
-import { COMMENTS } from './data'
-import { DESCRIPTIONS } from './data'
+import {NAMES} from './data';
+import { COMMENTS } from './data';
+import { DESCRIPTIONS } from './data';
 import { createRandomIdFromRangeGenerator } from './utils';
 
 const createPhoto = () => {
