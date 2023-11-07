@@ -12,9 +12,7 @@
 
 // Для формирования текста комментария — message — вам необходимо взять одно или два случайных предложения из представленных ниже:
 
-import { createRandomIdFromRangeGenerator } from './util';
-
-const NAMES = [
+const NAMES = () => [
   'Елизавета',
   'Маруся',
   'Евграф',
@@ -24,7 +22,7 @@ const NAMES = [
   'Цезарь'
 ];
 
-const COMMENTS = [
+const COMMENTS = () => [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -33,7 +31,7 @@ const COMMENTS = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const DESCRIPTIONS = [
+const DESCRIPTIONS = () => [
   'Мой ужин на закате',
   'Люблю гулять по полю утром!',
   'Не придумала описание, просто фото',
@@ -42,33 +40,6 @@ const DESCRIPTIONS = [
   'Ну и денек!'
 ];
 
-const createPhoto = () => {
-
-  const randomId = createRandomIdFromRangeGenerator(1,26);
-  const randomUrl = createRandomIdFromRangeGenerator(1,25);
-  const randomAvatar = createRandomIdFromRangeGenerator(1,25);
-  const randomDescription = createRandomIdFromRangeGenerator(0, DESCRIPTIONS.length - 1);
-  const randomLike = createRandomIdFromRangeGenerator(15, 200);
-  const randomComment = createRandomIdFromRangeGenerator(0, COMMENTS.length - 1);
-  const randomName = createRandomIdFromRangeGenerator(0, NAMES.length - 1);
-
-  return {
-    id: (randomId()),
-    url: `photos/${[(randomUrl())]}.jpg`,
-    description: DESCRIPTIONS[(randomDescription)()],
-    likes: (randomLike()),
-    message: {
-      id: (randomId()),
-      avatar:`img/avatar-${[(randomAvatar)()]}.svg`,
-      comment: COMMENTS[(randomComment)()],
-      name: NAMES[(randomName)()]
-    },
-  };
-};
-
-const newPhotos = Array.from({length: 25}, createPhoto);
-
-// eslint-disable-next-line no-console
-
-
-export {newPhotos};
+export {NAMES};
+export {DESCRIPTIONS};
+export {COMMENTS};
