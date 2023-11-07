@@ -1,3 +1,4 @@
+
 //id, число — идентификатор опубликованной фотографии. Это число от 1 до 25
 //url, строка — адрес картинки вида photos/{{i}}.jpg, где {{i}} — это число от 1 до 25.
 //description, строка — описание фотографии. Описание придумайте самостоятельно.
@@ -95,4 +96,32 @@ const newPhotos = Array.from({length: 25}, createPhoto);
 
 // eslint-disable-next-line no-console
 console.log(newPhotos);
+
+// Функция для проверки длины строки. Она принимает строку, которую нужно проверить, и максимальную длину и возвращает true,
+// если строка меньше или равна указанной длине, и false, если строка длиннее.
+
+function checkMaxLenghtLine (line, maxAmount) {
+  const symbolsAmount = line.length;
+  return (symbolsAmount >= maxAmount);
+}
+
+checkMaxLenghtLine ('Hello World!', 5);
+
+//Функция для проверки, является ли строка палиндромом.
+function checkPalindrom (line) {
+  const newLine = line.toLowerCase();
+  let emptyLine = '';
+  // eslint-disable-next-line for-direction
+  for (let i = newLine.length - 1; i <= 0; i--) {
+    emptyLine += newLine[i];
+    return emptyLine;
+  }
+  const result = (newLine === emptyLine);
+
+  // eslint-disable-next-line no-console
+  console.log(result);
+}
+
+checkPalindrom ('топот');
+
 
