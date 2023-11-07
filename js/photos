@@ -16,13 +16,13 @@ const createPhoto = () => {
   return {
     id: (randomId()),
     url: `photos/${[(randomUrl())]}.jpg`,
-    description: DESCRIPTIONS[(randomDescription)()],
+    description: [(randomDescription)()],
     likes: (randomLike()),
     message: {
       id: (randomId()),
       avatar:`img/avatar-${[(randomAvatar)()]}.svg`,
-      comment: COMMENTS[(randomComment)()],
-      name: NAMES[(randomName)()]
+      comment:[(randomComment)()],
+      name:[(randomName)()]
     },
   };
 };
