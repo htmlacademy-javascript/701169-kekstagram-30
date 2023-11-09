@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import { newPhotos } from './data';
+import { newPhotos } from './photos.js';
 
 // eslint-disable-next-line no-console
 
