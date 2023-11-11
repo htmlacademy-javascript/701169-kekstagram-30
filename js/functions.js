@@ -1,3 +1,4 @@
+
 //id, число — идентификатор опубликованной фотографии. Это число от 1 до 25
 //url, строка — адрес картинки вида photos/{{i}}.jpg, где {{i}} — это число от 1 до 25.
 //description, строка — описание фотографии. Описание придумайте самостоятельно.
@@ -12,7 +13,6 @@
 
 // Для формирования текста комментария — message — вам необходимо взять одно или два случайных предложения из представленных ниже:
 
-import { createRandomIdFromRangeGenerator } from './util';
 
 const NAMES = [
   'Елизавета',
@@ -42,6 +42,32 @@ const DESCRIPTIONS = [
   'Ну и денек!'
 ];
 
+function getRandomInteger (min, max) {
+  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
+  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
+  const result = Math.random() * (upper - lower + 1) + lower;
+
+  return Math.floor(result);
+}
+
+function createRandomIdFromRangeGenerator (min, max) {
+  const previousValues = [];
+
+  return function () {
+    let currentValue = getRandomInteger(min, max);
+    if (previousValues.length >= (max - min + 1)) {
+      // eslint-disable-next-line no-console
+      console.error(`Перебраны все числа из диапазона от ${ min } до ${ max}`);
+      return null;
+    }
+    while (previousValues.includes(currentValue)) {
+      currentValue = getRandomInteger(min, max);
+    }
+    previousValues.push(currentValue);
+    return currentValue;
+  };
+}
+
 const createPhoto = () => {
 
   const randomId = createRandomIdFromRangeGenerator(1,26);
@@ -69,6 +95,33 @@ const createPhoto = () => {
 const newPhotos = Array.from({length: 25}, createPhoto);
 
 // eslint-disable-next-line no-console
+console.log(newPhotos);
+
+// Функция для проверки длины строки. Она принимает строку, которую нужно проверить, и максимальную длину и возвращает true,
+// если строка меньше или равна указанной длине, и false, если строка длиннее.
+
+function checkMaxLenghtLine (line, maxAmount) {
+  const symbolsAmount = line.length;
+  return (symbolsAmount >= maxAmount);
+}
+
+checkMaxLenghtLine ('Hello World!', 5);
+
+//Функция для проверки, является ли строка палиндромом.
+function checkPalindrom (line) {
+  const newLine = line.toLowerCase();
+  let emptyLine = '';
+  // eslint-disable-next-line for-direction
+  for (let i = newLine.length - 1; i <= 0; i--) {
+    emptyLine += newLine[i];
+    return emptyLine;
+  }
+  const result = (newLine === emptyLine);
+
+  // eslint-disable-next-line no-console
+  console.log(result);
+}
+
+checkPalindrom ('топот');
 
 
-export {newPhotos};
