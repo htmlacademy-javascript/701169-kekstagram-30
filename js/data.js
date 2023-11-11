@@ -12,7 +12,7 @@
 
 // Для формирования текста комментария — message — вам необходимо взять одно или два случайных предложения из представленных ниже:
 
-import { createRandomIdFromRangeGenerator } from './util';
+import { createRandomIdFromRangeGenerator } from './utils.js';
 
 const NAMES = [
   'Елизавета',
@@ -66,9 +66,8 @@ const createPhoto = () => {
   };
 };
 
-const newPhotos = Array.from({length: 25}, createPhoto);
 
 // eslint-disable-next-line no-console
 
 
-export {newPhotos};
+export {createPhoto};
