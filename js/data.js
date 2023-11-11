@@ -11,7 +11,7 @@
 // }
 
 // Для формирования текста комментария — message — вам необходимо взять одно или два случайных предложения из представленных ниже:
-
+import { createRandomIdFromRangeGenerator } from './utils.js';
 
 const NAMES = [
   'Елизавета',
@@ -41,6 +41,29 @@ const DESCRIPTIONS = [
   'Ну и денек!'
 ];
 
-export {NAMES};
-export {DESCRIPTIONS};
-export {COMMENTS};
+const createPhoto = () => {
+
+  const randomId = createRandomIdFromRangeGenerator(1,26);
+  const randomUrl = createRandomIdFromRangeGenerator(1,25);
+  const randomAvatar = createRandomIdFromRangeGenerator(1,25);
+  const randomDescription = createRandomIdFromRangeGenerator(0, DESCRIPTIONS.length - 1);
+  const randomLike = createRandomIdFromRangeGenerator(15, 200);
+  const randomComment = createRandomIdFromRangeGenerator(0, COMMENTS.length - 1);
+  const randomName = createRandomIdFromRangeGenerator(0, NAMES.length - 1);
+
+  return {
+    id: (randomId()),
+    url: `photos/${[(randomUrl())]}.jpg`,
+    description: DESCRIPTIONS[(randomDescription)()],
+    likes: (randomLike()),
+    message: {
+      id: (randomId()),
+      avatar:`img/avatar-${[(randomAvatar)()]}.svg`,
+      comment:COMMENTS[(randomComment)()],
+      name:NAMES[(randomName())]
+    },
+  };
+};
+
+
+export {createPhoto};
