@@ -52,7 +52,7 @@ const createPhoto = () => {
   const randomComment = createRandomIdFromRangeGenerator(0, COMMENTS.length - 1);
   const randomName = createRandomIdFromRangeGenerator(0, NAMES.length - 1);
 
-  return {
+  const photo = {
     id: (randomId()),
     url: `photos/${[(randomUrl())]}.jpg`,
     description: DESCRIPTIONS[(randomDescription)()],
@@ -60,10 +60,11 @@ const createPhoto = () => {
     message: {
       id: (randomId()),
       avatar:`img/avatar-${[(randomAvatar)()]}.svg`,
-      comment: COMMENTS[(randomComment)()],
+      comments: COMMENTS[(randomComment)()],
       name: NAMES[(randomName)()]
     },
   };
+  return photo;
 };
 
 
