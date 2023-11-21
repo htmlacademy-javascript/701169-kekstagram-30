@@ -13,6 +13,7 @@
 // Для формирования текста комментария — message — вам необходимо взять одно или два случайных предложения из представленных ниже:
 
 import { createRandomIdFromRangeGenerator } from './utils.js';
+import {getRandomInteger} from './utils.js';
 
 const NAMES = [
   'Елизавета',
@@ -44,30 +45,35 @@ const DESCRIPTIONS = [
 
 const createPhoto = () => {
 
-  const randomId = createRandomIdFromRangeGenerator(1,26);
+  const randomId = createRandomIdFromRangeGenerator(1,25);
   const randomUrl = createRandomIdFromRangeGenerator(1,25);
   const randomAvatar = createRandomIdFromRangeGenerator(1,25);
   const randomDescription = createRandomIdFromRangeGenerator(0, DESCRIPTIONS.length - 1);
   const randomLike = createRandomIdFromRangeGenerator(15, 200);
-  const randomComment = createRandomIdFromRangeGenerator(0, COMMENTS.length - 1);
+  const randomCommentCount = createRandomIdFromRangeGenerator(0, COMMENTS.length - 1);
   const randomName = createRandomIdFromRangeGenerator(0, NAMES.length - 1);
 
-  return {
-    id: (randomId()),
+  const photo = {
+    id: randomId(),
     url: `photos/${[(randomUrl())]}.jpg`,
     description: DESCRIPTIONS[(randomDescription)()],
-    likes: (randomLike()),
-    message: {
-      id: (randomId()),
-      avatar:`img/avatar-${[(randomAvatar)()]}.svg`,
-      comment: COMMENTS[(randomComment)()],
-      name: NAMES[(randomName)()]
-    },
+    likes: randomLike(),
+    comments: Array.from({length: getRandomInteger(0,25)}, () => {
+      const randomIdComments = createRandomIdFromRangeGenerator(0, 25);
+      return {
+        id: randomIdComments(),
+        avatar:`img/avatar-${[(randomAvatar)()]}.svg`,
+        message: COMMENTS[randomCommentCount()],
+        name: NAMES[randomName()]
+      };
+    }),
   };
+  return photo;
 };
+const photoArray = Array.from({length: 25}, createPhoto);
 
 
 // eslint-disable-next-line no-console
 
 
-export {createPhoto};
+export {photoArray};
